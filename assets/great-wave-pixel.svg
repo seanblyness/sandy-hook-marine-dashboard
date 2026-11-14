@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 960" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+<defs><pattern id="d" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M0 0h4v4H0zM8 8h4v4H8z" fill="#c9d6d1" opacity=".27"/></pattern></defs>
+<path fill="#7da8bb" d="M0 0h640v960H0z"/><path fill="#a6bfca" d="M0 0h640v420H0z"/>
+<path fill="#e8dcc0" d="M0 125h80v16h32v-16h48v16h64v16h-240v-16H0zm360 60h64v-16h64v16h48v16h104v16H360z"/>
+<path fill="#d9d6c5" d="M400 355h32v-24h24v-28h16v-20h16v-24h16v-16h16v16h16v24h16v20h16v28h24v24h48v16H400z"/>
+<path fill="#234e77" d="M448 355h32v-24h16v-28h16v-20h16v20h16v28h16v24h48v16H448z"/>
+<path fill="#174d78" d="M0 420h640v540H0z"/>
+<path fill="#28668c" d="M0 470h640v20H0zm0 70h640v20H0zm0 80h640v16H0zm0 110h640v18H0zm0 100h640v18H0z"/>
+<path fill="#f4e4c5" d="M0 415h80v-16h48v-24h32v-32h32v-40h32v-40h32v-40h32v-40h48v-32h64v16h48v24h32v24h16v32h16v32h-24v-16h-16v-24h-24v-16h-16v-16h-32v16h-16v16h-16v24h-16v24h-16v24h-16v24h-16v24h-16v32h-16v32h-16v32h-16v32h-16v40h-16v40h-16v32h-16v32H0z"/>
+<path fill="#0c335f" d="M0 450h48v-16h32v-24h32v-32h32v-40h32v-40h32v-40h32v-40h32v-32h48v-16h32v16h48v24h32v32h32v32h-24v-16h-24v-16h-32v-16h-32v16h-16v24h-16v24h-16v24h-16v32h-16v32h-16v40h-16v40h-16v48h-16v48h-16v48h-16v48h-16v48H0z"/>
+<path fill="#387aa0" d="M0 495h48v-32h32v-32h32v-32h32v-40h32v-40h32v-32h32v-32h32v-32h32v-16h32v16h32v32h32v16h32v32h-32v-16h-32v-16h-32v16h-16v32h-16v32h-16v32h-16v40h-16v40h-16v40h-16v48h-16v48h-16v48h-16v48H0z"/>
+<path fill="#e8dfc6" d="M336 202h32v16h16v16h16v16h16v24h16v24h-16v-16h-16v-16h-16v-16h-16v-16h-32zM0 655h64v-16h64v-16h80v-16h80v-16h96v-16h112v-16h144v24H512v16h-96v16h-80v16h-80v16h-80v16H96v16H0z"/>
+<path fill="#f3e7cc" d="M0 785h80v-16h80v-16h96v-16h96v-16h96v-16h96v-16h96v32h-80v16h-80v16h-96v16h-96v16h-96v16h-96v16H0z"/>
+<path fill="#0b3159" d="M0 840h96v-16h80v-16h80v-16h96v-16h96v-16h96v-16h96v216H0z"/>
+<path fill="#d6d4bf" d="M0 865h64v-16h80v-16h80v-16h80v-16h96v-16h96v-16h96v-16h48v24h-64v16h-80v16h-80v16h-80v16h-80v16h-80v16h-80v16H0z"/>
+<path fill="url(#d)" d="M0 0h640v960H0z"/></svg>
