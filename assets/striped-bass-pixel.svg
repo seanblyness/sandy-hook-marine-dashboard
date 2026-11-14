@@ -1,1 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 64" shape-rendering="crispEdges"><path fill="#1b3446" d="M0 20h12v8h8v-8h8v-8h8V8h48v4h12v8h8v8h8v8h-8v8h-8v8H84v4H36v-4h-8v-8h-8v-8h-8v8H0v-8h8v-8H0z"/><path fill="#a9b9a9" d="M24 24h8v-8h16v-4h32v4h12v8h8v12h-8v8H80v4H48v-4H32v-8h-8z"/><path fill="#d9d8bc" d="M32 32h60v8H80v4H48v-4H32z"/><path fill="#243b42" d="M36 16h52v4H36zm-4 8h64v4H32zm4 8h60v4H36zm12 8h40v4H48z"/><path fill="#66847d" d="M48 12h8V4h8v8h8V4h8v8h8v4H48zM48 48h8v8h8v4h8v-8h8v-4z"/><path fill="#a3b5a4" d="M12 20h8v8h8v8h-8v8h-8v-8H4v-8h8z"/><path fill="#101f2d" d="M84 20h8v8h-8z"/><path fill="#f1eee0" d="M84 20h4v4h-4z"/><path fill="#425d65" d="M96 36h8v4h-8z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 128" shape-rendering="crispEdges">
+<defs><linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#536e72"/><stop offset=".32" stop-color="#a4b9ad"/><stop offset=".67" stop-color="#d5d6bd"/><stop offset="1" stop-color="#859d99"/></linearGradient></defs>
+<!-- Dark crisp outline, distinctly forked caudal fin at left -->
+<path d="M56 53 24 29 13 22 19 47 8 64 19 82 13 107 25 99 56 77 68 89 91 98 148 102 179 97 199 89 215 81 231 74 242 64 233 53 215 45 198 38 180 30 146 25 99 27 76 34Z" fill="#203a48"/>
+<path d="M51 56 23 34 27 51 17 64 27 77 23 94 52 73 66 67Z" fill="#7f9d9d"/>
+<path d="M47 56 29 45 34 57 26 64 34 71 29 83 47 72Z" fill="#bac6b2"/>
+<!-- spiny dorsal fin with individual rays -->
+<path d="M87 33 91 13 99 26 106 7 114 25 123 9 132 24 141 11 150 27 162 19 173 33 181 41 145 38Z" fill="#3b5962" stroke="#213c49" stroke-width="2"/>
+<path d="M97 26V17M111 26V13M126 27V14M142 29V16M159 32V24" stroke="#a5b5a7" stroke-width="2"/>
+<!-- soft dorsal fin -->
+<path d="M76 34 69 20 63 16 67 39Z" fill="#536f74" stroke="#253d48" stroke-width="2"/>
+<!-- anal and pelvic fins -->
+<path d="M95 91 104 114 117 106 125 98 142 102 154 113 165 108 174 92Z" fill="#66868a" stroke="#243d49" stroke-width="2"/>
+<path d="M172 85 181 103 194 96 200 79Z" fill="#6b8c8b" stroke="#233e4a" stroke-width="2"/>
+<!-- silvery fish body with tapered shoulders and recognizable blunt head -->
+<path d="M56 53 70 42 92 34 118 31 155 32 181 39 201 46 219 51 231 58 235 65 228 71 218 76 205 82 183 89 158 94 118 96 91 91 69 81 56 73 63 64Z" fill="url(#body)" stroke="#233e4b" stroke-width="3"/>
+<path d="M72 75 96 87 131 92 164 89 191 82 218 73 224 70 201 78 173 84 136 87 103 84Z" fill="#e6dec5" opacity=".75"/>
+<!-- seven distinct longitudinal bass stripes -->
+<path d="M68 39h96l14 -2h14" stroke="#304a57" stroke-width="3" fill="none"/><path d="M68 48h96l14 -2h14" stroke="#243e50" stroke-width="3" fill="none"/><path d="M68 57h96l14 -2h14" stroke="#304a57" stroke-width="3" fill="none"/><path d="M68 66h96l14 2h14" stroke="#243e50" stroke-width="3" fill="none"/><path d="M68 75h96l14 2h14" stroke="#304a57" stroke-width="3" fill="none"/><path d="M68 84h96l14 2h14" stroke="#243e50" stroke-width="3" fill="none"/>
+<path d="M68 35 112 31 157 33 189 42 215 52" fill="none" stroke="#e2dec4" stroke-width="2" opacity=".75"/>
+<!-- gill plate, jaw and cheek -->
+<path d="M195 45 188 54 188 67 196 79" fill="none" stroke="#486671" stroke-width="3"/>
+<path d="M200 48 196 56 196 68 202 76" fill="none" stroke="#e3dfc7" stroke-width="2"/>
+<path d="M221 70 234 69 241 72 230 76 217 75" fill="#243d48"/>
+<path d="M223 69 236 67 241 64" fill="none" stroke="#f0e6cc" stroke-width="3"/>
+<!-- eye with glint -->
+<rect x="211" y="53" width="12" height="12" fill="#172e3d"/>
+<rect x="214" y="55" width="7" height="7" fill="#cba96b"/>
+<rect x="216" y="56" width="4" height="4" fill="#152b39"/>
+<rect x="216" y="56" width="2" height="2" fill="#fff4d6"/>
+<!-- small scales and highlights -->
+<path d="M90 42h4m12-5h4m16 4h4m15-5h4m-61 46h4m16 6h4m20-1h4m17-2h4" stroke="#eff0d5" stroke-width="2" opacity=".7"/>
+</svg>
