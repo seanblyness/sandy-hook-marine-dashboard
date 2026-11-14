@@ -2,27 +2,21 @@ const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
 const PORT=Number(process.env.PORT||3000);
 const URLS={met:'https://www.ndbc.noaa.gov/data/realtime2/44065.txt',spec:'https://www.ndbc.noaa.gov/data/realtime2/44065.spec',forecast:'https://api.weather.gov/zones/forecast/ANZ450/forecast'};
 const cache=new Map();
-// Wikimedia Commons' community-reviewed Featured Pictures collection is the only image source.
-// This deliberately excludes unrestricted search results and unlicensed magazine hotlinks.
-let previousFishTitle='';
+// Hand-curated, properly attributed NOAA/Smithsonian fish photography.
+// No runtime image-search API: Commons Special:FilePath resolves verified file titles.
+const FISH_PHOTOS=[
+ {name:'Striped bass',file:'Morone saxatilis striped bass fish close up underwater high definiton image.jpg',credit:'Wikimedia Commons contributor'},
+ {name:'Black sea bass',file:'Centropristis striata underwater 2.jpg',credit:"Greg McFall / NOAA Gray's Reef National Marine Sanctuary"},
+ {name:'Black sea bass at Gray’s Reef',file:"Black sea bass at Gray's Reef National Marine Sanctuary in Georgia.jpg",credit:'NOAA National Ocean Service'},
+ {name:'Bluefish',file:'Pomatomus saltatrix - SERC.jpg',credit:'Smithsonian Environmental Research Center'}
+];
+let previousFishIndex=-1;
 async function randomFish(){
- const category='Category:Featured pictures of Actinopterygii';
- const params=new URLSearchParams({action:'query',generator:'categorymembers',gcmtitle:category,gcmtype:'file',gcmlimit:'max',prop:'imageinfo',iiprop:'url|extmetadata',iiurlwidth:'1400',format:'json'});
- const response=await fetch('https://commons.wikimedia.org/w/api.php?'+params,{headers:{'User-Agent':'SandyHookMarineDashboard/1.1 (curated Wikimedia Commons featured fish photography)'},signal:AbortSignal.timeout(10000)});
- if(!response.ok)throw Error('Featured photography service unavailable');
- const data=await response.json();
- const rejected=/illustrat|drawing|skeleton|fossil|museum|aquarium|dead|market|cooked|plate|logo|chart|map|diagram|painting|engraving|stamp/i;
- const candidates=Object.values(data.query?.pages||{}).filter(p=>{
-   const info=p.imageinfo?.[0];
-   return info&&/^File:/i.test(p.title)&&/\\.(jpe?g|png|webp)$/i.test(p.title)&&!rejected.test(p.title)&&info.thumburl&&/^https:\/\/upload.wikimedia.org\//.test(info.thumburl);
- });
- if(!candidates.length)throw Error('No curated fish photographs available');
- const available=candidates.filter(p=>p.title!==previousFishTitle);
- const chosen=(available.length?available:candidates)[Math.floor(Math.random()*(available.length||candidates.length))];
- previousFishTitle=chosen.title;
- const info=chosen.imageinfo[0];
- const clean=t=>String(t||'').replace(/<[^>]*>/g,'').replace(/&[^;]+;/g,' ').trim().slice(0,120);
- return {name:clean(chosen.title.replace(/^File:/,'').replace(/\\.[^.]+$/,'').replace(/[_-]/g,' ')),url:info.thumburl,source:'Wikimedia Commons · Featured Picture',credit:clean(info.extmetadata?.Artist?.value),page:info.descriptionurl||'https://commons.wikimedia.org/wiki/'+encodeURIComponent(chosen.title.replace(/ /g,'_'))};
+ let index=Math.floor(Math.random()*FISH_PHOTOS.length);
+ if(index===previousFishIndex)index=(index+1)%FISH_PHOTOS.length;
+ previousFishIndex=index;
+ const item=FISH_PHOTOS[index];
+ return {name:item.name,url:'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(item.file),source:'NOAA / Smithsonian photography via Wikimedia Commons',credit:item.credit,page:'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(item.file.replace(/ /g,'_'))};
 }
 
 async function upstream(url){const old=cache.get(url);if(old&&Date.now()-old.at<300000)return old.body;const r=await fetch(url,{headers:{'User-Agent':'SandyHookMarineDashboard/1.0 (marine conditions informational dashboard)','Accept':'text/plain, application/geo+json, application/json'},signal:AbortSignal.timeout(13000)});if(!r.ok)throw Error('Upstream '+r.status);const body=await r.text();cache.set(url,{at:Date.now(),body});return body;}
