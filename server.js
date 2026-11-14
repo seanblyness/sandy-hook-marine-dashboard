@@ -5,18 +5,26 @@ const cache=new Map();
 // Hand-curated, properly attributed NOAA/Smithsonian fish photography.
 // No runtime image-search API: Commons Special:FilePath resolves verified file titles.
 const FISH_PHOTOS=[
- {name:'Striped bass',file:'Morone saxatilis striped bass fish close up underwater high definiton image.jpg',credit:'Wikimedia Commons contributor'},
- {name:'Black sea bass',file:'Centropristis striata underwater 2.jpg',credit:"Greg McFall / NOAA Gray's Reef National Marine Sanctuary"},
+ {name:'Striped bass',file:'Morone saxatilis striped bass fish close up underwater high definiton image.jpg',credit:'U.S. Fish and Wildlife Service'},
+ {name:'Black sea bass',file:'Centropristis striata underwater 2.jpg',credit:"Greg McFall / NOAA Gray's Reef"},
  {name:'Black sea bass at Gray’s Reef',file:"Black sea bass at Gray's Reef National Marine Sanctuary in Georgia.jpg",credit:'NOAA National Ocean Service'},
- {name:'Bluefish',file:'Pomatomus saltatrix - SERC.jpg',credit:'Smithsonian Environmental Research Center'}
+ {name:'Black sea bass at Gray’s Reef',file:'GRNMS - Black Sea Bass (26820993210).jpg',credit:'Greg McFall / NOAA'},
+ {name:'Striped bass',file:'Striped bass.jpg',credit:'U.S. Fish and Wildlife Service'},
+ {name:'Bluefish',file:'Bluefish noaa.jpg',credit:'NOAA'}
 ];
-let previousFishIndex=-1;
+let fishQueue=[];
+let lastFish=-1;
+function nextFishIndex(){
+ if(!fishQueue.length){
+  fishQueue=FISH_PHOTOS.map((_,i)=>i);
+  for(let i=fishQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[fishQueue[i],fishQueue[j]]=[fishQueue[j],fishQueue[i]];}
+  if(fishQueue[0]===lastFish&&fishQueue.length>1)[fishQueue[0],fishQueue[1]]=[fishQueue[1],fishQueue[0]];
+ }
+ lastFish=fishQueue.shift();return lastFish;
+}
 async function randomFish(){
- let index=Math.floor(Math.random()*FISH_PHOTOS.length);
- if(index===previousFishIndex)index=(index+1)%FISH_PHOTOS.length;
- previousFishIndex=index;
- const item=FISH_PHOTOS[index];
- return {name:item.name,url:'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(item.file),source:'NOAA / Smithsonian photography via Wikimedia Commons',credit:item.credit,page:'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(item.file.replace(/ /g,'_'))};
+ const item=FISH_PHOTOS[nextFishIndex()];
+ return {name:item.name,url:'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(item.file),source:'U.S. government wildlife photography via Wikimedia Commons',credit:item.credit,page:'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(item.file.replace(/ /g,'_'))};
 }
 
 async function upstream(url){const old=cache.get(url);if(old&&Date.now()-old.at<300000)return old.body;const r=await fetch(url,{headers:{'User-Agent':'SandyHookMarineDashboard/1.0 (marine conditions informational dashboard)','Accept':'text/plain, application/geo+json, application/json'},signal:AbortSignal.timeout(13000)});if(!r.ok)throw Error('Upstream '+r.status);const body=await r.text();cache.set(url,{at:Date.now(),body});return body;}
