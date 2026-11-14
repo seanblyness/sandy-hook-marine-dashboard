@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 128" shape-rendering="crispEdges">
-<defs><linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#536e72"/><stop offset=".32" stop-color="#a4b9ad"/><stop offset=".67" stop-color="#d5d6bd"/><stop offset="1" stop-color="#859d99"/></linearGradient></defs>
+<defs><linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#233f50"/><stop offset=".15" stop-color="#526e79"/><stop offset=".31" stop-color="#8fa9a8"/><stop offset=".46" stop-color="#d1d9cc"/><stop offset=".58" stop-color="#f1e8cf"/><stop offset=".77" stop-color="#d3d4bf"/><stop offset="1" stop-color="#607f8a"/></linearGradient><linearGradient id="fin" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#253e52"/><stop offset=".6" stop-color="#729398"/><stop offset="1" stop-color="#b7c3ad"/></linearGradient><pattern id="scales" width="9" height="7" patternUnits="userSpaceOnUse"><path d="M0 2Q4 7 9 2M-4 -2Q0 3 4 -2" stroke="#eaf2de" stroke-width=".65" opacity=".5" fill="none"/></pattern><clipPath id="bodyClip"><path d="M56 53 70 42 92 34 118 31 155 32 181 39 201 46 219 51 231 58 235 65 228 71 218 76 205 82 183 89 158 94 118 96 91 91 69 81 56 73 63 64Z"/></clipPath></defs>
 <!-- Dark crisp outline, distinctly forked caudal fin at left -->
 <path d="M56 53 24 29 13 22 19 47 8 64 19 82 13 107 25 99 56 77 68 89 91 98 148 102 179 97 199 89 215 81 231 74 242 64 233 53 215 45 198 38 180 30 146 25 99 27 76 34Z" fill="#203a48"/>
 <path d="M51 56 23 34 27 51 17 64 27 77 23 94 52 73 66 67Z" fill="#7f9d9d"/>
 <path d="M47 56 29 45 34 57 26 64 34 71 29 83 47 72Z" fill="#bac6b2"/>
 <!-- spiny dorsal fin with individual rays -->
-<path d="M87 33 91 13 99 26 106 7 114 25 123 9 132 24 141 11 150 27 162 19 173 33 181 41 145 38Z" fill="#3b5962" stroke="#213c49" stroke-width="2"/>
+<path d="M87 33 91 13 99 26 106 7 114 25 123 9 132 24 141 11 150 27 162 19 173 33 181 41 145 38Z" fill="url(#fin)" stroke="#213c49" stroke-width="2"/>
 <path d="M97 26V17M111 26V13M126 27V14M142 29V16M159 32V24" stroke="#a5b5a7" stroke-width="2"/>
 <!-- soft dorsal fin -->
 <path d="M76 34 69 20 63 16 67 39Z" fill="#536f74" stroke="#253d48" stroke-width="2"/>
 <!-- anal and pelvic fins -->
-<path d="M95 91 104 114 117 106 125 98 142 102 154 113 165 108 174 92Z" fill="#66868a" stroke="#243d49" stroke-width="2"/>
+<path d="M95 91 104 114 117 106 125 98 142 102 154 113 165 108 174 92Z" fill="url(#fin)" stroke="#243d49" stroke-width="2"/>
 <path d="M172 85 181 103 194 96 200 79Z" fill="#6b8c8b" stroke="#233e4a" stroke-width="2"/>
 <!-- silvery fish body with tapered shoulders and recognizable blunt head -->
 <path d="M56 53 70 42 92 34 118 31 155 32 181 39 201 46 219 51 231 58 235 65 228 71 218 76 205 82 183 89 158 94 118 96 91 91 69 81 56 73 63 64Z" fill="url(#body)" stroke="#233e4b" stroke-width="3"/>
 <path d="M72 75 96 87 131 92 164 89 191 82 218 73 224 70 201 78 173 84 136 87 103 84Z" fill="#e6dec5" opacity=".75"/>
-<!-- seven distinct longitudinal bass stripes -->
+<path clip-path="url(#bodyClip)" fill="url(#scales)" d="M55 28h182v72H55z"/><path d="M69 48Q122 30 173 42Q204 49 226 58" fill="none" stroke="#f8f5df" stroke-width="1.5" opacity=".7"/><path d="M76 76Q135 102 203 78" fill="none" stroke="#77969b" stroke-width="1.2" opacity=".6"/><!-- seven distinct longitudinal bass stripes -->
 <path d="M68 39h96l14 -2h14" stroke="#304a57" stroke-width="3" fill="none"/><path d="M68 48h96l14 -2h14" stroke="#243e50" stroke-width="3" fill="none"/><path d="M68 57h96l14 -2h14" stroke="#304a57" stroke-width="3" fill="none"/><path d="M68 66h96l14 2h14" stroke="#243e50" stroke-width="3" fill="none"/><path d="M68 75h96l14 2h14" stroke="#304a57" stroke-width="3" fill="none"/><path d="M68 84h96l14 2h14" stroke="#243e50" stroke-width="3" fill="none"/>
 <path d="M68 35 112 31 157 33 189 42 215 52" fill="none" stroke="#e2dec4" stroke-width="2" opacity=".75"/>
 <!-- gill plate, jaw and cheek -->
