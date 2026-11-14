@@ -2,9 +2,28 @@ const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
 const PORT=Number(process.env.PORT||3000);
 const URLS={met:'https://www.ndbc.noaa.gov/data/realtime2/44065.txt',spec:'https://www.ndbc.noaa.gov/data/realtime2/44065.spec',forecast:'https://api.weather.gov/zones/forecast/ANZ450/forecast'};
 const cache=new Map();
-const fishSpecies=['striped bass','bluefish','summer flounder','black sea bass','tautog','Atlantic mackerel','weakfish'];
-let previousFish=-1;
-async function randomFish(){let i=Math.floor(Math.random()*fishSpecies.length);if(i===previousFish)i=(i+1)%fishSpecies.length;previousFish=i;const name=fishSpecies[i];const params=new URLSearchParams({action:'query',generator:'search',gsrsearch:name+' fish',gsrnamespace:'6',gsrlimit:'20',prop:'imageinfo',iiprop:'url',iiurlwidth:'1200',format:'json',origin:'*'});const r=await fetch('https://commons.wikimedia.org/w/api.php?'+params,{headers:{'User-Agent':'SandyHookMarineDashboard/1.0 (fish image selection)'},signal:AbortSignal.timeout(8000)});if(!r.ok)throw Error('Image search unavailable');const j=await r.json();const images=Object.values(j.query?.pages||{}).map(p=>p.imageinfo?.[0]?.thumburl||p.imageinfo?.[0]?.url).filter(u=>u&&/\.(jpg|jpeg|png|webp)(\?|$)/i.test(u));if(!images.length)throw Error('No fish images');return {name:name.replace(/\b\w/g,c=>c.toUpperCase()),url:images[Math.floor(Math.random()*images.length)]};}
+// Wikimedia Commons' community-reviewed Featured Pictures collection is the only image source.
+// This deliberately excludes unrestricted search results and unlicensed magazine hotlinks.
+let previousFishTitle='';
+async function randomFish(){
+ const category='Category:Featured pictures of Actinopterygii';
+ const params=new URLSearchParams({action:'query',generator:'categorymembers',gcmtitle:category,gcmtype:'file',gcmlimit:'max',prop:'imageinfo',iiprop:'url|extmetadata',iiurlwidth:'1400',format:'json'});
+ const response=await fetch('https://commons.wikimedia.org/w/api.php?'+params,{headers:{'User-Agent':'SandyHookMarineDashboard/1.1 (curated Wikimedia Commons featured fish photography)'},signal:AbortSignal.timeout(10000)});
+ if(!response.ok)throw Error('Featured photography service unavailable');
+ const data=await response.json();
+ const rejected=/illustrat|drawing|skeleton|fossil|museum|aquarium|dead|market|cooked|plate|logo|chart|map|diagram|painting|engraving|stamp/i;
+ const candidates=Object.values(data.query?.pages||{}).filter(p=>{
+   const info=p.imageinfo?.[0];
+   return info&&/^File:/i.test(p.title)&&/\\.(jpe?g|png|webp)$/i.test(p.title)&&!rejected.test(p.title)&&info.thumburl&&/^https:\/\/upload.wikimedia.org\//.test(info.thumburl);
+ });
+ if(!candidates.length)throw Error('No curated fish photographs available');
+ const available=candidates.filter(p=>p.title!==previousFishTitle);
+ const chosen=(available.length?available:candidates)[Math.floor(Math.random()*(available.length||candidates.length))];
+ previousFishTitle=chosen.title;
+ const info=chosen.imageinfo[0];
+ const clean=t=>String(t||'').replace(/<[^>]*>/g,'').replace(/&[^;]+;/g,' ').trim().slice(0,120);
+ return {name:clean(chosen.title.replace(/^File:/,'').replace(/\\.[^.]+$/,'').replace(/[_-]/g,' ')),url:info.thumburl,source:'Wikimedia Commons · Featured Picture',credit:clean(info.extmetadata?.Artist?.value),page:info.descriptionurl||'https://commons.wikimedia.org/wiki/'+encodeURIComponent(chosen.title.replace(/ /g,'_'))};
+}
 
 async function upstream(url){const old=cache.get(url);if(old&&Date.now()-old.at<300000)return old.body;const r=await fetch(url,{headers:{'User-Agent':'SandyHookMarineDashboard/1.0 (marine conditions informational dashboard)','Accept':'text/plain, application/geo+json, application/json'},signal:AbortSignal.timeout(13000)});if(!r.ok)throw Error('Upstream '+r.status);const body=await r.text();cache.set(url,{at:Date.now(),body});return body;}
 function parseDate(a){return new Date(Date.UTC(+a[0],+a[1]-1,+a[2],+a[3],+a[4])).toISOString();}
